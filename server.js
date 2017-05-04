@@ -5,7 +5,11 @@
  * Created by Cas on 5/2/2017.
  */
 var express = require('express');
+var config = require('./config.json');
+
 var app = express();
+
+app.set('PORT', config.webPort);
 
 app.get('/', function(request, response) {
     response.send('Hello Avans!');
@@ -23,6 +27,9 @@ app.put('/', function(request, response) {
     response.send('Hello Avans, PUT request received!');
 })
 
-app.listen(8080, function() {
-    console.log('Server app is listening on port 8080');
+var port = process.env.PORT || app.get('PORT');
+
+app.listen(port, function() {
+    console.log('The magic happens at http://localhost:' + port);
 })
+
