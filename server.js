@@ -6,7 +6,10 @@
  */
 var express = require('express');
 var config = require('./config.json');
+var express = require('express');
+var path = require('path');
 
+var router = express.Router();
 var app = express();
 
 app.set('PORT', config.webPort);
@@ -32,4 +35,14 @@ var port = process.env.PORT || app.get('PORT');
 app.listen(port, function() {
     console.log('The magic happens at http://localhost:' + port);
 })
+
+router.get('*', function(request, response) {
+    response.status(200);
+    response.json({
+        "description": "Recipes REST server API version 1 is no longer supported. Please use API version 2."
+    });
+});
+
+module.exports = router;
+
 
